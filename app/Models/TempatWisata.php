@@ -15,5 +15,10 @@ class TempatWisata extends Model
         'name',
         'description',
         'address',
+        'categories',
     ];
+
+    public function images(){
+        return $this->hasMany(Image::class);
+    }
 }
