@@ -17,9 +17,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', function() {
-    return view('index');
-})->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/tempatWisata/{id}', [App\Http\Controllers\HomeController::class, 'show'])->name('tempatWisata.show');
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');

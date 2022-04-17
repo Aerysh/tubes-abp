@@ -4,14 +4,19 @@
 
 @section('css')
     <style>
-        #hero{
+        #hero {
             height: 100vh;
-            background-image:url("{{ asset('background.png') }}");
-            background-size:cover;
-            background-color: rgba(0,0,0,0.5);
+            background-image: url("{{ asset('background.png') }}");
+            background-size: cover;
+            background-color: rgba(0, 0, 0, 0.5);
             background-blend-mode: overlay;
-            background-position:center;
+            background-position: center;
         }
+
+        .scrolled {
+            transition: 0.3s;
+        }
+
     </style>
 @endsection
 
@@ -31,27 +36,19 @@
         <div class="container my-5">
             <div class="row">
                 <h2>Top Destination</h2>
-                <div class="col-md-4">
-                    <img src="{{asset('images/mal-phinisi.jpg')}}" class="img-fluid h-75" alt="Mal Phinisi Point">
-                    <div class="my-3">
-                        <h5>Mal Phinisi Point</h5>
-                        <p>Tempat Belanja</p>
+                @foreach ($tempatWisatas as $tw)
+                    <div class="col-md-4">
+                        @foreach ($tw->images as $image)
+                            <img src="{{ asset('images/' . $image->image) }}" class="img-fluid h-75"
+                                alt="Mal Phinisi Point">
+                        @endforeach
+                        <div class="my-3">
+                            <a class="h5 text-decoration-none" href="{{ route('tempatWisata.show', $tw->id)}}">{{ $tw->name }}</a>
+                            <p>Tempat Belanja</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <img src="{{asset('images/trans-studio.jpg')}}" class="img-fluid h-75" alt="Trans Studio Makassar">
-                    <div class="my-3">
-                        <h5>Trans Studio Makassar</h5>
-                        <p>Taman Hiburan</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <img src="{{asset('images/pantai-losari.jpg')}} " class="img-fluid h-75" alt="Pantai Losari">
-                    <div class="my-3">
-                        <h5>Pantai Losari</h5>
-                        <p>Pantai</p>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
     </section>
@@ -61,10 +58,9 @@
                 <div class="col-md-4 d-flex align-content-center flex-wrap">
                     <h2>Tolong Gunakan Masker</h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum omnis perferendis assumenda!</p>
-                    <a href="#" class="btn btn-primary">Lebih Lanjut</a>
                 </div>
                 <div class="col-md-8">
-                    <img src="{{asset('covid.jpg')}}" class="img-fluid" alt="Covid-19">
+                    <img src="{{ asset('covid.jpg') }}" class="img-fluid" alt="Covid-19">
                 </div>
             </div>
         </div>
@@ -77,7 +73,8 @@
             <div class="row">
                 <div class="col-md-4">
                     <h3 class="text-light">keMakassar</h3>
-                    <p class="text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum omnis perferendis assumenda!</p>
+                    <p class="text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum omnis
+                        perferendis assumenda!</p>
                     <p class="text-light">Copyright &copy; 2022</p>
                 </div>
                 <div class="col-md-4">
@@ -118,4 +115,22 @@
             </div>
         </div>
     </section>
+@endsection
+
+
+@section('scripts')
+    <script>
+        $(function() {
+            var navbar = $('.navbar');
+
+            $(window).scroll(function() {
+                // if > #topDestination - a bit of space
+                if ($(this).scrollTop() > $('#topDestination').offset().top - navbar.height() - 10) {
+                    navbar.addClass('bg-dark scrolled');
+                } else {
+                    navbar.removeClass('bg-dark scrolled');
+                }
+            });
+        })
+    </script>
 @endsection

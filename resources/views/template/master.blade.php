@@ -30,7 +30,7 @@
                 <div class="collapse navbar-collapse" id="mainNavbar">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ route('home') }}">Home</a>
+                            <a class="nav-link {{ request()->routeIs('home') ? 'active' : ''}}" href="{{ route('home') }}">Home</a>
                         </li>
                         @guest
                             @if (Route::has('login'))
@@ -69,6 +69,9 @@
         @yield('footer')
     </footer>
 
+    {{-- jQuery CDN --}}
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     {{-- Bootstrap JS --}}
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 
