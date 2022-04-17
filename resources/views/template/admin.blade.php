@@ -31,7 +31,8 @@
                                 href="{{ route('admin.tempatWisata.index') }}">Tempat Wisata</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Kategori</a>
+                            <a class="nav-link {{ request()->routeIs('admin.kategori.*') ? 'active' : '' }}"
+                                href="{{ route('admin.kategori.index') }}">Kategori</a>
                         </li>
                     </ul>
                 </div>

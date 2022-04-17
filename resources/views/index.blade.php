@@ -22,12 +22,12 @@
                 <h1 class="display-5 fw-bold text-light">Welcome</h1>
                 <p class="lead mb-4 text-light">keMakassar dapat membantu anda berwisata!</p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                    <button type="button" class="btn btn-primary rounded-pill px-4 gap-3">Find Out More</button>
+                    <a href="#topDestination" class="btn btn-primary rounded-pill px-4 gap-3">Find Out More</a>
                 </div>
             </div>
         </div>
     </section>
-    <section name="topDestination">
+    <section id="topDestination" name="topDestination">
         <div class="container my-5">
             <div class="row">
                 <h2>Top Destination</h2>

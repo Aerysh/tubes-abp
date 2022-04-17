@@ -23,6 +23,7 @@ Route::get('/', function() {
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+    // Tempat Wisata
     Route::prefix('tempatWisata')->group(function () {
         Route::get('/', [App\Http\Controllers\TempatWisataController::class, 'index'])->name('admin.tempatWisata.index');
         Route::get('/create', [App\Http\Controllers\TempatWisataController::class, 'create'])->name('admin.tempatWisata.create');
@@ -31,4 +32,15 @@ Route::prefix('admin')->group(function () {
         Route::put('/update/{id}', [App\Http\Controllers\TempatWisataController::class, 'update'])->name('admin.tempatWisata.update');
         Route::delete('/delete/{id}', [App\Http\Controllers\TempatWisataController::class, 'destroy'])->name('admin.tempatWisata.delete');
     });
+    // Kategori
+    Route::prefix('kategori')->group(function () {
+        Route::get('/', [App\Http\Controllers\KategoriController::class, 'index'])->name('admin.kategori.index');
+        Route::get('/create', [App\Http\Controllers\KategoriController::class, 'create'])->name('admin.kategori.create');
+        Route::post('/store', [App\Http\Controllers\KategoriController::class, 'store'])->name('admin.kategori.store');
+        Route::get('/edit/{id}', [App\Http\Controllers\KategoriController::class, 'edit'])->name('admin.kategori.edit');
+        Route::put('/update/{id}', [App\Http\Controllers\KategoriController::class, 'update'])->name('admin.kategori.update');
+        Route::delete('/delete/{id}', [App\Http\Controllers\KategoriController::class, 'destroy'])->name('admin.kategori.delete');
+    });
 });
+
+Auth::routes();

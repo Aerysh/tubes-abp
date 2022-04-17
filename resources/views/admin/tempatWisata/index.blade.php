@@ -29,7 +29,7 @@
                             <tbody>
                                 @foreach ($tempatWisatas as $tw)
                                     <tr>
-                                        <td>{{ $tw->id }}</td>
+                                        <td>{{ $loop->index+1 }}</td>
                                         <td>{{ $tw->name }}</td>
                                         <td>{{ $tw->description }}</td>
                                         <td>{{ $tw->address }}</td>
