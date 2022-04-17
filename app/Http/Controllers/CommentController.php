@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TempatWisata;
 use App\Models\Comment;
-use App\Models\Users;
+use Auth;
 use Illuminate\Http\Request;
 
 
-class HomeController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tempatWisatas = TempatWisata::with('images')->inRandomOrder()->take(3)->get();
-        return view('index', compact('tempatWisatas'));
+        //
     }
 
     /**
@@ -34,34 +32,39 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $comment = new Comment;
+        $comment->tempat_wisata_id = $id;
+        $comment->user_id = Auth::user()->id;
+        $comment->comment = $request->comment;
+        $comment->rating  = $request->rating;
+        $comment->save();
+
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TempatWisata  $tempatWisata
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comment $comment)
     {
-        $tempatWisata = TempatWisata::with('images')->findOrFail($id);
-        $comments = Comment::with('user')->where('tempat_wisata_id', $id)->get();
-        return view('tempatWisata.show', compact('tempatWisata', 'comments'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TempatWisata  $tempatWisata
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(TempatWisata $tempatWisata)
+    public function edit(Comment $comment)
     {
         //
     }
@@ -69,11 +72,11 @@ class HomeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TempatWisata  $tempatWisata
+     * @param  \App\Http\Requests\UpdateCommentRequest  $request
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TempatWisata $tempatWisata)
+    public function update(UpdateCommentRequest $request, Comment $comment)
     {
         //
     }
@@ -81,10 +84,10 @@ class HomeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TempatWisata  $tempatWisata
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TempatWisata $tempatWisata)
+    public function destroy(Comment $comment)
     {
         //
     }

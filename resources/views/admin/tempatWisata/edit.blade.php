@@ -6,10 +6,19 @@
     <div class="container">
         <div class="row my-3 d-flex justify-content-center">
             <div class="col-md-8">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="list-unstyled">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Edit Tempat Wisata</h5>
-                        <form action="{{route('admin.tempatWisata.update', $tempatWisata->id)}}" method="POST">
+                        <form action="{{ route('admin.tempatWisata.update', $tempatWisata->id) }}" method="POST" enctype="multipart/form-data">
                             @method('PUT')
                             {{ csrf_field() }}
                             <div class="mb-3">
@@ -31,11 +40,17 @@
                                 <label for="categories">Kategori</label>
                                 <select name="categories" id="address" class="form-select" aria-label="Default Select"
                                     required>
-                                    <option selected>Pilih Kategori</option>
-                                    <option value="1">Kategori 1</option>
-                                    <option value="2">Kategori 2</option>
-                                    <option value="3">Kategori 3</option>
+                                    <option selected value>Pilih Kategori</option>
+                                    @foreach ($kategoris as $k)
+                                        <option value="{{ $k->name }}"
+                                            {{ $k->name == $tempatWisata->categories ? 'selected' : '' }}>
+                                            {{ $k->name }}</option>
+                                    @endforeach
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="images">Foto</label>
+                                <input name="images" id="images" class="form-control" type="file">
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-success">Simpan</button>

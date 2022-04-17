@@ -28,7 +28,8 @@
                             <a class="nav-link {{ request()->routeIs('admin.tempatWisata.*') ? 'active' : '' }}" href="{{ route('admin.tempatWisata.index') }}">Tempat Wisata</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Kategori</a>
+                            <a class="nav-link {{ request()->routeIs('admin.kategori.*') ? 'active' : '' }}"
+                                href="{{ route('admin.kategori.index') }}">Kategori</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav mb-2 mb-lg-0">

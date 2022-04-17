@@ -4,19 +4,20 @@
 
 @section('css')
     <style>
-        #hero {
+        #hero{
             height: 100vh;
-            background-image: url("{{ asset('background.png') }}");
-            background-size: cover;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-image:url("{{ asset('background.png') }}");
+            background-size:cover;
+            background-color: rgba(0,0,0,0.5);
             background-blend-mode: overlay;
-            background-position: center;
+            background-position:center;
         }
-
-        .scrolled {
-            transition: 0.3s;
-        }
-
+        a.button {
+            border: 1px solid #808080;
+            background: #a0a0a0;
+            display: inline-block;
+            padding: 5px;
+}
     </style>
 @endsection
 
@@ -27,28 +28,36 @@
                 <h1 class="display-5 fw-bold text-light">Welcome</h1>
                 <p class="lead mb-4 text-light">keMakassar dapat membantu anda berwisata!</p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                    <a href="#topDestination" class="btn btn-primary rounded-pill px-4 gap-3">Find Out More</a>
+                    <button type="button" class="btn btn-primary rounded-pill px-4 gap-3">Find Out More</button>
                 </div>
             </div>
         </div>
     </section>
-    <section id="topDestination" name="topDestination">
+    <section name="topDestination">
         <div class="container my-5">
             <div class="row">
                 <h2>Top Destination</h2>
-                @foreach ($tempatWisatas as $tw)
-                    <div class="col-md-4">
-                        @foreach ($tw->images as $image)
-                            <img src="{{ asset('images/' . $image->image) }}" class="img-fluid h-75"
-                                alt="Mal Phinisi Point">
-                        @endforeach
-                        <div class="my-3">
-                            <a class="h5 text-decoration-none" href="{{ route('tempatWisata.show', $tw->id)}}">{{ $tw->name }}</a>
-                            <p>Tempat Belanja</p>
-                        </div>
+                <div class="col-md-4">
+                    <img src="{{asset('images/mal-phinisi.jpg')}}" class="img-fluid h-75" alt="Mal Phinisi Point">
+                    <div class="my-3">
+                        <a class="button" href="\resources\views\phinisi.blade.php" target="_blank"><h5>Mal Phinis Point</h5></a>
+                        <p>Tempat Belanja</p>
                     </div>
-                @endforeach
-
+                </div>
+                <div class="col-md-4">
+                    <img src="{{asset('images/trans-studio.jpg')}}" class="img-fluid h-75" alt="Trans Studio Makassar">
+                    <div class="my-3">
+                    <a class="button" href="\resources\views\trans.blade.php" target="_blank"><h5>Trans Studio Makassar</h5></a>
+                        <p>Taman Hiburan</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img src="{{asset('images/pantai-losari.jpg')}} " class="img-fluid h-75" alt="Pantai Losari">
+                    <div class="my-3">
+                    <a class="button" href="\resources\views\losari.blade.php" target="_blank"><h5>Pantai Losari</h5></a>
+                        <p>Pantai</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -58,9 +67,10 @@
                 <div class="col-md-4 d-flex align-content-center flex-wrap">
                     <h2>Tolong Gunakan Masker</h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum omnis perferendis assumenda!</p>
+                    <a href="#" class="btn btn-primary">Lebih Lanjut</a>
                 </div>
                 <div class="col-md-8">
-                    <img src="{{ asset('covid.jpg') }}" class="img-fluid" alt="Covid-19">
+                    <img src="{{asset('covid.jpg')}}" class="img-fluid" alt="Covid-19">
                 </div>
             </div>
         </div>
@@ -73,8 +83,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <h3 class="text-light">keMakassar</h3>
-                    <p class="text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum omnis
-                        perferendis assumenda!</p>
+                    <p class="text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum omnis perferendis assumenda!</p>
                     <p class="text-light">Copyright &copy; 2022</p>
                 </div>
                 <div class="col-md-4">
@@ -115,22 +124,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-
-@section('scripts')
-    <script>
-        $(function() {
-            var navbar = $('.navbar');
-
-            $(window).scroll(function() {
-                // if > #topDestination - a bit of space
-                if ($(this).scrollTop() > $('#topDestination').offset().top - navbar.height() - 10) {
-                    navbar.addClass('bg-dark scrolled');
-                } else {
-                    navbar.removeClass('bg-dark scrolled');
-                }
-            });
-        })
-    </script>
 @endsection
