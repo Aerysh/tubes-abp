@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/tempatWisata/{id}', [App\Http\Controllers\HomeController::class, 'show'])->name('tempatWisata.show');
 
+// Ulasan
+Route::post('/tempatWisata/ulasan/{id}', [App\Http\Controllers\CommentController::class, 'store'])->name('tempatWisata.ulasan.store');
+
 Route::prefix('admin')->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
     // Tempat Wisata
