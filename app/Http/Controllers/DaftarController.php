@@ -8,9 +8,9 @@ class DaftarController extends Controller
 {
     public function index()
     {
-        helper('form');
-        $data['title'] = "Daftar | KeMakassar";
-        return view('register', $data);
+        // helper('form');
+        // $data['title'] = "Daftar | KeMakassar";
+        return view('auth.register');
     }
 
     public function save()

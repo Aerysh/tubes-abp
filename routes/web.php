@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function() {
     return view('index');
-})->name('home');
+});
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
@@ -32,3 +32,7 @@ Route::prefix('admin')->group(function () {
         Route::delete('/delete/{id}', [App\Http\Controllers\TempatWisataController::class, 'destroy'])->name('admin.tempatWisata.delete');
     });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
