@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\Api\AuthenticationController;
+use App\Http\Controllers\Api\WisataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/profile', function(Request $request) {
         return auth()->user();
     });
+});
+
+// Tempat Wisata
+Route::prefix('wisata')->group(function () {
+    Route::get('/discover', [WisataController::class, 'discover'])->name('wisata.discover');
+    Route::get('/details/{id}', [WisataController::class, 'details'])->name('wisata.details');
 });
