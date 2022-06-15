@@ -50,8 +50,8 @@ android {
 
     defaultConfig {
         applicationId "com.abp.kemakassar"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 32
+        targetSdkVersion 32
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

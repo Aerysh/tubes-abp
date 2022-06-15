@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kemakassar/utils/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,6 +12,10 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final auth = Authentication();
+
+  late String email;
+  late String password;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +49,7 @@ class LoginScreenState extends State<LoginScreen> {
                     Container(
                       padding: const EdgeInsets.all(10.0),
                       child: TextFormField(
+                          onChanged: (val) => setState(() => email = val),
                           decoration: const InputDecoration(
                               icon: Icon(Icons.email_outlined),
                               labelText: 'Email'),
@@ -57,6 +63,7 @@ class LoginScreenState extends State<LoginScreen> {
                     Container(
                       padding: const EdgeInsets.all(10.0),
                       child: TextFormField(
+                          onChanged: (val) => setState(() => password = val),
                           decoration: const InputDecoration(
                             icon: Icon(Icons.password_outlined),
                             labelText: 'Password',
@@ -84,8 +91,20 @@ class LoginScreenState extends State<LoginScreen> {
                                     // you'd often call a server or save the information in a database.
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                          content: Text('Processing Data')),
+                                          content: Text('Logging in...')),
                                     );
+                                    auth.login(email, password).then((response) {
+                                      if (response.statusCode == 200) {
+                                        Navigator.pushNamed(context, '/');
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                                'Login failed. Please try again.'),
+                                          ),
+                                        );
+                                      }
+                                    });
                                   }
                                 },
                                 child: const Text('Login'),
