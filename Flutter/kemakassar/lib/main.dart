@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'keMakassar',
       //check if user is logged in
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
         '/': (context) => const Home(),
         '/login': (context) => const LoginScreen(),

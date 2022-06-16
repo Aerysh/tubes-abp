@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kemakassar/utils/services/auth_service.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -11,6 +12,11 @@ class RegisterScreen extends StatefulWidget {
 
 class RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
+  final auth = Authentication();
+
+  late String name;
+  late String email;
+  late String password;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +50,20 @@ class RegisterScreenState extends State<RegisterScreen> {
               Container(
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
+                    onChanged: (val) => setState(() => name = val),
+                    decoration: const InputDecoration(
+                        icon: Icon(Icons.person_outlined), labelText: 'Name'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your Name';
+                      }
+                      return null;
+                    }),
+              ),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                child: TextFormField(
+                    onChanged: (val) => setState(() => email = val),
                     decoration: const InputDecoration(
                         icon: Icon(Icons.email_outlined), labelText: 'Email'),
                     validator: (value) {
@@ -56,6 +76,8 @@ class RegisterScreenState extends State<RegisterScreen> {
               Container(
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
+                    onChanged: (val) => setState(() => password = val),
+                    obscureText: true,
                     decoration: const InputDecoration(
                         icon: Icon(Icons.lock_outlined), labelText: 'Password'),
                     validator: (value) {
@@ -68,6 +90,7 @@ class RegisterScreenState extends State<RegisterScreen> {
               Container(
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
+                    obscureText: true,
                     decoration: const InputDecoration(
                         icon: Icon(Icons.lock_outlined),
                         labelText: 'Confirm Password'),
@@ -90,8 +113,20 @@ class RegisterScreenState extends State<RegisterScreen> {
                             if (_formKey.currentState!.validate()) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                    content: Text('Processing Data')),
+                                    content: Text('Registering')),
                               );
+                              auth.register(name, email, password).then((response) {
+                                if(response.statusCode == 200){
+                                  Navigator.pushNamed(context, '/');
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'Login failed. Please try again.'),
+                                    ),
+                                  );
+                                }
+                              });
                             }
                           },
                           child: const Text('Register'),
