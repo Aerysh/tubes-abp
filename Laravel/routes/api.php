@@ -34,4 +34,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 Route::prefix('wisata')->group(function () {
     Route::get('/discover', [WisataController::class, 'discover'])->name('wisata.discover');
     Route::get('/details/{id}', [WisataController::class, 'details'])->name('wisata.details');
+    Route::post('/search/{name}', [WisataController::class, 'findByName'])->name('wisata.search');
 });

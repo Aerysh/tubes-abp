@@ -39,4 +39,17 @@ class WisataController extends Controller
             "comments" => $comments
         ]);
     }
+
+    /**
+     * Find tempat wisata by name.
+     * @param  string  $name
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function findByName($name)
+    {
+        // find like with images
+        $wisata = TempatWisata::with('images')->where('name', 'like', '%' . $name . '%')->get();
+        return response()->json($wisata);
+    }
 }
