@@ -87,17 +87,18 @@ class LoginScreenState extends State<LoginScreen> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    // If the form is valid, display a snackbar. In the real world,
-                                    // you'd often call a server or save the information in a database.
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           content: Text('Logging in...')),
                                     );
-                                    auth.login(email, password).then((response) {
+                                    auth
+                                        .login(email, password)
+                                        .then((response) {
                                       if (response.statusCode == 200) {
                                         Navigator.pushNamed(context, '/');
                                       } else {
-                                        ScaffoldMessenger.of(context).showSnackBar(
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
                                           const SnackBar(
                                             content: Text(
                                                 'Login failed. Please try again.'),

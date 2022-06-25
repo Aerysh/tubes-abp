@@ -4,6 +4,10 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+import '../secure_storage.dart';
+
+final SecureStorage secureStorage = SecureStorage();
+
 class Discover {
   final int id;
   final String name;
@@ -33,8 +37,18 @@ class Discover {
 }
 
 Future<List<Discover>> fetchDiscover(http.Client client) async {
-  final response = await client
-      .get(Uri.parse('http://192.168.8.100:8000/api/wisata/discover'));
+  final token = secureStorage.readSecureData('token');
+  String userToken = "";
+  await token.then((value) {
+    userToken = value;
+  });
+
+  final response = await client.get(
+      Uri.parse('http://192.168.8.100:8000/api/wisata/discover'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $userToken',
+      });
 
   return compute(parseDiscover, response.body);
 }
@@ -74,8 +88,17 @@ class Attraction {
 }
 
 Future<Attraction> fetchAttraction(http.Client client, int id) async {
-  final response = await client
-      .get(Uri.parse('http://192.168.8.100:8000/api/wisata/details/$id'));
+  final token = secureStorage.readSecureData('token');
+  String userToken = "";
+  await token.then((value) {
+    userToken = value;
+  });
+  final response = await client.get(
+      Uri.parse('http://192.168.8.100:8000/api/wisata/details/$id'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $userToken',
+      });
 
   if (response.statusCode == 200) {
     return Attraction.fromJson(json.decode(response.body));
@@ -83,4 +106,3 @@ Future<Attraction> fetchAttraction(http.Client client, int id) async {
     throw Exception('Failed to load post');
   }
 }
-

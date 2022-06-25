@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kemakassar/widgets/HomeScreenBanner.dart';
 
 import '../widgets/HomeScreenCategories.dart';
+import '../screens/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  late String name;
+
   @override
   void initState() {
     super.initState();
@@ -33,7 +36,32 @@ class HomeScreenState extends State<HomeScreen> {
                   )),
               TextButton(
                   style: TextButton.styleFrom(primary: Colors.black),
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      builder: (context) => AlertDialog(
+                        title: const Text('Search'),
+                        content: TextField(
+                          onChanged: (val) => setState(() => name = val),
+                          decoration: const InputDecoration(
+                            hintText: 'Search',
+                          ),
+                        ),
+                        actions: [
+                          // TODO: implement search function
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const SearchScreen(),
+                                  ),
+                                );
+                              }, child: const Text('Search'))
+                        ],
+                      ),
+                      context: context,
+                    );
+                  },
                   child: const Icon(
                     Icons.search,
                     size: 32,

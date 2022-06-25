@@ -6,6 +6,7 @@ class Categories {
 
   Categories(this.name, this.icon);
 
+  // TODO: call api based on given category
   static List<Categories> getCategories() {
     return <Categories>[
       Categories('Hotel', const Icon(Icons.hotel, size: 32)),
@@ -18,8 +19,6 @@ class Categories {
       Categories('Culture', const Icon(Icons.local_library, size: 32)),
       Categories('Religious', const Icon(Icons.place, size: 32)),
       Categories('Other', const Icon(Icons.more, size: 32)),
-
-
     ];
   }
 }
