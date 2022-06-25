@@ -28,11 +28,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/profile', function(Request $request) {
         return auth()->user();
     });
-});
 
-// Tempat Wisata
-Route::prefix('wisata')->group(function () {
-    Route::get('/discover', [WisataController::class, 'discover'])->name('wisata.discover');
-    Route::get('/details/{id}', [WisataController::class, 'details'])->name('wisata.details');
-    Route::post('/search/{name}', [WisataController::class, 'findByName'])->name('wisata.search');
+    // Tempat Wisata
+    Route::prefix('wisata')->group(function () {
+        Route::get('/discover', [WisataController::class, 'discover'])->name('wisata.discover');
+        Route::get('/details/{id}', [WisataController::class, 'details'])->name('wisata.details');
+        Route::get('/search/{name}', [WisataController::class, 'findByName'])->name('wisata.search');
+    });
 });
